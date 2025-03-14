@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v2.4.0 (2025-03-14)
+
+### Feature
+
+* Try another major version bump ([`576dedd`](https://github.com/lempira/algokit-client-generator-py/commit/576dedd2b7517bc54a62fa826cb812957ba040dc))
+
 ## v2.3.0 (2025-03-14)
 
 ### Feature
