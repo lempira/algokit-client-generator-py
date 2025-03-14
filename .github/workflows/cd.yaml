@@ -88,7 +88,7 @@ jobs:
           if [[ -n "${{ inputs.specific_version }}" ]]; then
             RELEASE_ARGS="$RELEASE_ARGS --define=next_version=${{ inputs.specific_version }}"
           fi
-
+          echo "Release args: $RELEASE_ARGS"
           poetry run semantic-release -v DEBUG $RELEASE_ARGS publish
           gh release edit --prerelease "v$(poetry run semantic-release print-version --current)"
         env:
@@ -107,7 +107,7 @@ jobs:
           if [[ -n "${{ inputs.specific_version }}" ]]; then
             RELEASE_ARGS="$RELEASE_ARGS --define=next_version=${{ inputs.specific_version }}"
           fi
-
+          echo "Release args: $RELEASE_ARGS"
           poetry run semantic-release -v DEBUG $RELEASE_ARGS publish
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
