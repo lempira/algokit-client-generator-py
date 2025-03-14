@@ -100,7 +100,8 @@ jobs:
           RELEASE_ARGS="--define=version_source=commit --define=patch_without_tag=true --define=branch=main"
 
           if [[ "${{ inputs.bump_major }}" == "true" ]]; then
-            RELEASE_ARGS="$RELEASE_ARGS --define=force_level=major"
+            # Make sure force_level is properly applied for major version bumps
+            RELEASE_ARGS="$RELEASE_ARGS --define=force_level=major --define=major_on_zero=true"
           fi
 
           if [[ -n "${{ inputs.specific_version }}" ]]; then
