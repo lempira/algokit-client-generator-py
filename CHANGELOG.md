@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v2.1.0 (2025-03-14)
+
+### Feature
+
+* Updated continuous delivery with inputs for bumping major version ([`4066ed4`](https://github.com/lempira/algokit-client-generator-py/commit/4066ed4ef15db03ca12682773f8d8654d32aa41c))
+
 ## v2.0.1 (2025-03-13)
 
 ### Fix
