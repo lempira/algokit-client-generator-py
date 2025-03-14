@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v2.2.0 (2025-03-14)
+
+### Feature
+
+* Small readme change ([`30e7fa5`](https://github.com/lempira/algokit-client-generator-py/commit/30e7fa559c4085024894cb202c2b8047a7cb838d))
+
 ## v2.1.0 (2025-03-14)
 
 ### Feature
