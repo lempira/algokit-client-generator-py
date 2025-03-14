@@ -13,6 +13,16 @@ on:
         type: boolean
         required: true
         default: true
+      bump_major:
+        description: "Bump major version?"
+        type: boolean
+        required: false
+        default: false
+      specific_version:
+        description: "Specific version to set (leave empty for automatic versioning)"
+        type: string
+        required: false
+        default: ""
 
 concurrency: release
 
@@ -69,11 +79,17 @@ jobs:
       - name: Create Continuous Deployment - Beta (non-prod)
         if: steps.get_branch.outputs.branch == 'main' && !inputs.production_release
         run: |
-          poetry run semantic-release \
-            -v DEBUG \
-            --prerelease \
-            --define=branch=main \
-            publish
+          RELEASE_ARGS="--prerelease --define=branch=main"
+
+          if [[ "${{ inputs.bump_major }}" == "true" ]]; then
+            RELEASE_ARGS="$RELEASE_ARGS --define=force_level=major"
+          fi
+
+          if [[ -n "${{ inputs.specific_version }}" ]]; then
+            RELEASE_ARGS="$RELEASE_ARGS --define=next_version=${{ inputs.specific_version }}"
+          fi
+
+          poetry run semantic-release -v DEBUG $RELEASE_ARGS publish
           gh release edit --prerelease "v$(poetry run semantic-release print-version --current)"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -81,14 +97,19 @@ jobs:
       - name: Create Continuous Deployment - Production
         if: steps.get_branch.outputs.branch == 'main' && inputs.production_release
         run: |
-          poetry run semantic-release \
-            -v DEBUG \
-            --define=version_source="commit" \
-            --define=patch_without_tag=true \
-            --define=branch=main \
-            publish
+          RELEASE_ARGS="--define=version_source=commit --define=patch_without_tag=true --define=branch=main"
+
+          if [[ "${{ inputs.bump_major }}" == "true" ]]; then
+            RELEASE_ARGS="$RELEASE_ARGS --define=force_level=major"
+          fi
+
+          if [[ -n "${{ inputs.specific_version }}" ]]; then
+            RELEASE_ARGS="$RELEASE_ARGS --define=next_version=${{ inputs.specific_version }}"
+          fi
+
+          poetry run semantic-release -v DEBUG $RELEASE_ARGS publish
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish package distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+      # - name: Publish package distributions to PyPI
+      #   uses: pypa/gh-action-pypi-publish@release/v1
