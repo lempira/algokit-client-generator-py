@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v2.3.0 (2025-03-14)
+
+### Feature
+
+* Another major bump test ([`cf74668`](https://github.com/lempira/algokit-client-generator-py/commit/cf74668e9d9a0828ad1e4c4b36fb9edd2822c1a1))
+
 ## v2.2.0 (2025-03-14)
 
 ### Feature
