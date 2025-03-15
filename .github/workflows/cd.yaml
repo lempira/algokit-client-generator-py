@@ -13,16 +13,15 @@ on:
         type: boolean
         required: true
         default: true
-      bump_major:
-        description: "Bump major version?"
+      bump_manual_version:
+        description: "Manually bump version number"
         type: boolean
         required: false
         default: false
-      specific_version:
-        description: "Specific version to set (leave empty for automatic versioning)"
+      manual_version:
+        description: "Version number to set (e.g. 1.2.3)"
         type: string
         required: false
-        default: ""
 
 concurrency: release
 
@@ -77,38 +76,39 @@ jobs:
         run: git config --global user.email "actions@github.com" && git config --global user.name "github-actions"
 
       - name: Create Continuous Deployment - Beta (non-prod)
-        if: steps.get_branch.outputs.branch == 'main' && !inputs.production_release
+        if: steps.get_branch.outputs.branch == 'main' && !inputs.production_release && !inputs.bump_manual_version
         run: |
-          RELEASE_ARGS="--prerelease --define=branch=main"
-
-          if [[ "${{ inputs.bump_major }}" == "true" ]]; then
-            RELEASE_ARGS="$RELEASE_ARGS --define=force_level=major"
-          fi
-
-          if [[ -n "${{ inputs.specific_version }}" ]]; then
-            RELEASE_ARGS="$RELEASE_ARGS --define=next_version=${{ inputs.specific_version }}"
-          fi
-          echo "Release args: $RELEASE_ARGS"
-          poetry run semantic-release -v DEBUG $RELEASE_ARGS publish
+          poetry run semantic-release \
+            -v DEBUG \
+            --prerelease \
+            --define=branch=main \
+            publish
           gh release edit --prerelease "v$(poetry run semantic-release print-version --current)"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Continuous Deployment - Production
-        if: steps.get_branch.outputs.branch == 'main' && inputs.production_release
+        if: steps.get_branch.outputs.branch == 'main' && inputs.production_release && !inputs.bump_manual_version
         run: |
-          RELEASE_ARGS="--define=version_source=commit --define=patch_without_tag=true --define=branch=main"
+          poetry run semantic-release \
+            -v DEBUG \
+            --define=version_source="commit" \
+            --define=patch_without_tag=true \
+            --define=branch=main \
+            publish
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-          if [[ "${{ inputs.bump_major }}" == "true" ]]; then
-            # Make sure force_level is properly applied for major version bumps
-            RELEASE_ARGS="$RELEASE_ARGS --define=force_level=major --define=major_on_zero=true"
-          fi
-
-          if [[ -n "${{ inputs.specific_version }}" ]]; then
-            RELEASE_ARGS="$RELEASE_ARGS --define=next_version=${{ inputs.specific_version }}"
-          fi
-          echo "Release args: $RELEASE_ARGS"
-          poetry run semantic-release -v DEBUG $RELEASE_ARGS publish
+      - name: Create Continuous Deployment - Manual Version
+        if: inputs.bump_manual_version
+        run: |
+          poetry run semantic-release \
+            -v DEBUG \
+            --define=version_source="commit" \
+            --define=patch_without_tag=true \
+            --define=branch=main \
+            --define=version=${{ inputs.manual_version }} \
+            publish
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
