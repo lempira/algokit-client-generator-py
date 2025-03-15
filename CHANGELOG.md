@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v3.0.0 (2025-03-15)
+
+### Breaking
+
+* bumped major epoch release ([`5d8c51e`](https://github.com/lempira/algokit-client-generator-py/commit/5d8c51e4904624288e6d0bb7d9b906cc76e04f37))
+
 ## v2.5.1 (2025-03-15)
 
 
