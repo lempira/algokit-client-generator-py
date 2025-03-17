@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v5000.0.1 (2025-03-17)
+
+### Fix
+
+* Minor fix to test cd ([`c6e9828`](https://github.com/lempira/algokit-client-generator-py/commit/c6e982817e19946608d674b460042defed957319))
+
 ## v5000.0.0 (2025-03-17)
 
 ### Chore
