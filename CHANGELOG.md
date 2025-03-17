@@ -2,6 +2,16 @@
 
 <!--next-version-placeholder-->
 
+## v5001.0.0 (2025-03-17)
+
+### Feature
+
+* Major change ([`2c4dd0b`](https://github.com/lempira/algokit-client-generator-py/commit/2c4dd0b378761998f5d0f8597d27c626286f8c1c))
+
+### Breaking
+
+* major change ([`2c4dd0b`](https://github.com/lempira/algokit-client-generator-py/commit/2c4dd0b378761998f5d0f8597d27c626286f8c1c))
+
 ## v5000.1.0 (2025-03-17)
 
 ### Feature
