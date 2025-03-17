@@ -116,7 +116,7 @@ jobs:
 
           # Commit the version change
           git add pyproject.toml
-          git commit -m "build: release version $VERSION"
+          git commit -t "$VERSION" -m "$VERSION"
 
           # Create and push tag
           git tag -a "v$VERSION" -m "Release v$VERSION"
