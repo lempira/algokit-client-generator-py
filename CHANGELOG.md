@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v5000.1.0 (2025-03-17)
+
+### Feature
+
+* Minor feat ([`c077fc3`](https://github.com/lempira/algokit-client-generator-py/commit/c077fc3d1dfdf7b72e27c8ae0bdbab9fd675be47))
+
 ## v5000.0.1 (2025-03-17)
 
 ### Fix
