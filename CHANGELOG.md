@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v4000.0.1 (2025-03-17)
+
+### Fix
+
+* Updated changelog ([`f5ea2f2`](https://github.com/lempira/algokit-client-generator-py/commit/f5ea2f22101f5d8d653fab26262c7a8c221516b1))
+
 ## v4000.0.0 (2025-03-17)
 
 ### Chore
