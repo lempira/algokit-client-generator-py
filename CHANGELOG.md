@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v4000.0.0 (2025-03-17)
+
+### Chore
+
+* Bumped major version
+
 ## v2.0.1 (2025-03-13)
 
 ### Fix
