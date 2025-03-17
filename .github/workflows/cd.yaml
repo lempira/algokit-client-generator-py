@@ -114,8 +114,13 @@ jobs:
           # Update version in pyproject.toml
           poetry version $VERSION
 
-          # Commit the version change
-          git add pyproject.toml
+          # Update CHANGELOG.md
+          TODAY=$(date +%Y-%m-%d)
+          NEW_ENTRY="## v$VERSION ($TODAY)\n\n### Chore\n\n* Bumped major version"
+          sed -i 's/<!--next-version-placeholder-->/<!--next-version-placeholder-->\n\n'"$NEW_ENTRY"'/' CHANGELOG.md
+
+          # Commit both changes together
+          git add pyproject.toml CHANGELOG.md
           git commit -t "$VERSION" -m "$VERSION"
 
           # Create and push tag
