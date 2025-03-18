@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v6000.0.0 (2025-03-18)
+
+### Chore
+
+* Bumped major version
+
 ## v5001.0.0 (2025-03-17)
 
 ### Feature
